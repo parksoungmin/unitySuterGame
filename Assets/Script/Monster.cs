@@ -10,10 +10,12 @@ public class Monster : MonoBehaviour
     public float pushForce = 2f;  // 플레이어가 밀었을 때 밀리는 정도 (조정 가능)
     public int hp = 100;
     private int damage = 20;
+    public GameManager manager;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        manager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -30,11 +32,9 @@ public class Monster : MonoBehaviour
             // 회전 적용
             transform.rotation = Quaternion.LookRotation(direction);
 
-            // 플레이어와 일정 거리 이상일 경우 이동
-            if (distance > stopDistance)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
-            }
+
+            transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+
         }
     }
 
@@ -69,6 +69,7 @@ public class Monster : MonoBehaviour
 
     public void Die()
     {
+        manager.UpScore();
         Destroy(gameObject);
     }
 }

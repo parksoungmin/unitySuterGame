@@ -34,13 +34,12 @@ public class PlayerMovement : MonoBehaviour
     {
 
     }
-    // Update is called once per frame
     private void FixedUpdate()
     {
         var pos = transform.position;
         Vector2 moveInput = new Vector2(input.MoveX, input.MoveZ);
-        pos += input.MoveX * transform.forward * speed * Time.deltaTime;
-        pos += input.MoveZ * transform.right * speed * Time.deltaTime;
+        pos += input.MoveX * Vector3.forward * speed * Time.deltaTime;
+        pos += input.MoveZ * Vector3.right * speed * Time.deltaTime;
         transform.position = pos;
 
         animator.SetFloat(hashMove, moveInput.magnitude);
